@@ -1,1 +1,15 @@
-[{"relation":["delegate_permission/common.handle_all_urls"],"target":{"namespace":"android_app","package_name":"io.github.zn3utr4l.pumplog","sha256_cert_fingerprints":["96:E7:3C:7E:03:A2:77:9B:29:6E:7F:68:E1:7F:EF:67:74:FD:C9:28:7D:59:C4:B8:89:6E:90:D8:7E:AA:D8:84"]}}]
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.zn3utr4l.pumplog",
+      "sha256_cert_fingerprints": [
+        "96:E7:3C:7E:03:A2:77:9B:29:6E:7F:68:E1:7F:EF:67:74:FD:C9:28:7D:59:C4:B8:89:6E:90:D8:7E:AA:D8:84",
+        "CD:E8:30:9E:AE:24:C0:83:92:F7:DA:9A:68:04:AA:C7:60:40:83:2D:1F:C6:94:16:7E:EE:71:C2:BE:D9:1B:6C"
+      ]
+    }
+  }
+]
