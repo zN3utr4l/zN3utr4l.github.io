@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PumpLog — diario di allenamento</title>
+<meta name="description" content="PumpLog: diario di allenamento gratuito, senza account e senza pubblicità. Scaricalo dal Play Store.">
+<style>
+* { margin: 0; box-sizing: border-box; }
+body {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  background:
+    radial-gradient(900px 500px at 78% 20%, rgba(255,122,61,.16), transparent 70%),
+    radial-gradient(700px 400px at 10% 100%, rgba(255,122,61,.07), transparent 70%),
+    #1A1410;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: #F6ECDF; text-align: center; padding: 24px;
+}
+.card { max-width: 420px; }
+h1 { font-size: 44px; font-weight: 800; letter-spacing: -1px; }
+h1 .dot { color: #FF7A3D; }
+p.tag { margin: 10px 0 22px; color: #C9AE96; font-size: 17px; line-height: 1.4; }
+.mascot { width: 150px; margin: 0 auto 14px; display: block; }
+.btn {
+  display: inline-block; margin: 6px 4px; padding: 13px 26px; border-radius: 999px;
+  font-weight: 700; font-size: 16px; text-decoration: none;
+}
+.btn-primary { background: #FF7A3D; color: #1A1410; }
+.btn-ghost { border: 1.5px solid rgba(255,122,61,.45); color: #FF8A50; }
+.notice {
+  margin: 0 0 18px; padding: 12px 16px; border-radius: 14px;
+  background: rgba(255,122,61,.12); border: 1px solid rgba(255,122,61,.3);
+  font-size: 15px; display: none;
+}
+.notice strong { color: #FF8A50; font-size: 20px; letter-spacing: 2px; }
+footer { margin-top: 26px; font-size: 12.5px; color: #8A7565; }
+footer a { color: #C9AE96; }
+</style>
+</head>
+<body>
+<div class="card">
+  <svg class="mascot" viewBox="0 0 200 214" fill="none" aria-hidden="true">
+    <ellipse cx="100" cy="204" rx="56" ry="8" fill="rgba(0,0,0,0.25)"/>
+    <rect x="72" y="182" width="24" height="16" rx="8" fill="#332E3C"/>
+    <rect x="104" y="182" width="24" height="16" rx="8" fill="#332E3C"/>
+    <path d="M58,84 C58,34 142,34 142,84" fill="none" stroke="#FF7A3D" stroke-width="22" stroke-linecap="round"/>
+    <circle cx="100" cy="132" r="62" fill="#454050"/>
+    <ellipse cx="78" cy="98" rx="30" ry="16" fill="rgba(255,255,255,0.09)" transform="rotate(-18 78 98)"/>
+    <path d="M40,118 Q18,98 16,72" fill="none" stroke="#454050" stroke-width="16" stroke-linecap="round"/>
+    <circle cx="16" cy="70" r="10" fill="#565064"/>
+    <path d="M160,118 Q182,98 184,72" fill="none" stroke="#454050" stroke-width="16" stroke-linecap="round"/>
+    <circle cx="184" cy="70" r="10" fill="#565064"/>
+    <ellipse cx="82" cy="120" rx="12" ry="14" fill="#F6ECDF"/>
+    <ellipse cx="118" cy="120" rx="12" ry="14" fill="#F6ECDF"/>
+    <circle cx="84" cy="122" r="6" fill="#221B14"/>
+    <circle cx="116" cy="122" r="6" fill="#221B14"/>
+    <circle cx="86.5" cy="117" r="2.2" fill="#F6ECDF"/>
+    <circle cx="118.5" cy="117" r="2.2" fill="#F6ECDF"/>
+    <path d="M66,103 L92,114" stroke="#221B14" stroke-width="6" stroke-linecap="round"/>
+    <path d="M134,103 L108,114" stroke="#221B14" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="66" cy="140" r="7" fill="#FF9A6B" opacity="0.45"/>
+    <circle cx="134" cy="140" r="7" fill="#FF9A6B" opacity="0.45"/>
+    <path d="M86,146 Q100,164 114,146" fill="none" stroke="#221B14" stroke-width="6" stroke-linecap="round"/>
+  </svg>
+  <h1>PumpLog<span class="dot">.</span></h1>
+  <p class="tag">Il diario di allenamento gratuito, senza account e senza pubblicità.</p>
+
+  <p id="join-notice" class="notice">Sei stato invitato a una sfida!<br>Codice: <strong id="join-code"></strong><br>Installa l'app o aprila per entrare.</p>
+  <p id="auth-notice" class="notice">Accesso quasi completato: apri PumpLog per finire.</p>
+
+  <a id="open-app" class="btn btn-ghost" style="display:none" href="#">Apri nell'app</a>
+  <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=io.github.zn3utr4l.pumplog">Scarica su Google Play</a>
+
+  <footer>
+    <a href="https://gist.github.com/zN3utr4l/394f4228bb775ee90742619581fabcf0">Privacy policy</a> ·
+    <a href="https://gist.github.com/zN3utr4l/394f4228bb775ee90742619581fabcf0#file-account-deletion-md">Eliminazione dati</a>
+  </footer>
+</div>
+<script>
+// Con l'app installata gli App Links aprono direttamente PumpLog e questa pagina
+// non si vede. Se si vede: o l'app manca, o l'intercettazione è fallita → offriamo
+// un intent:// esplicito che riporta il deep link (join/auth) dentro l'app.
+(function () {
+  var q = new URLSearchParams(location.search)
+  var join = (q.get('join') || '').toUpperCase()
+  var isAuth = q.get('auth') === 'google'
+  if (join) {
+    document.getElementById('join-code').textContent = join
+    document.getElementById('join-notice').style.display = 'block'
+  } else if (isAuth) {
+    document.getElementById('auth-notice').style.display = 'block'
+  }
+  if (join || isAuth) {
+    var deep = 'zn3utr4l.github.io/PumpLog/' + location.search
+    var a = document.getElementById('open-app')
+    a.href = 'intent://' + deep + '#Intent;scheme=https;package=io.github.zn3utr4l.pumplog;end'
+    a.style.display = 'inline-block'
+  }
+})()
+</script>
+</body>
+</html>
