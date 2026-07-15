@@ -1,110 +1,66 @@
 <!doctype html>
 <html lang="it">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Carburo — Informativa sulla privacy</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath d='M60 14 C42 46 26 66 26 88 a34 34 0 0 0 68 0 C94 66 78 46 60 14 Z' fill='%23006C67'/%3E%3C/svg%3E">
-<style>
-  :root{
-    --paper:#EEF3F1; --card:#FFFFFF; --ink:#0C1A18; --muted:#5E6F6B;
-    --line:rgba(12,26,24,.12); --teal:#006C67; --amber:#C9760A;
-  }
-  @media (prefers-color-scheme:dark){
-    :root{ --paper:#08110F; --card:#101E1B; --ink:#E9F1EF; --muted:#8FA6A1;
-      --line:rgba(255,255,255,.14); --teal:#2DD4BF; --amber:#F7B948; }
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);line-height:1.65;
-    font-family:'Segoe UI',system-ui,-apple-system,Roboto,sans-serif;}
-  .wrap{max-width:760px;margin:0 auto;padding:40px 20px 80px}
-  header{display:flex;align-items:center;gap:16px;margin-bottom:8px}
-  header svg{width:56px;height:56px;flex:none}
-  h1{font-size:28px;margin:0;letter-spacing:-.01em}
-  .sub{color:var(--muted);margin:2px 0 0;font-size:14px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;
-    padding:22px 24px;margin-top:24px}
-  h2{font-size:18px;margin:26px 0 8px;color:var(--teal)}
-  h2:first-child{margin-top:0}
-  p{margin:8px 0}
-  ul{margin:8px 0;padding-left:22px}
-  li{margin:6px 0}
-  a{color:var(--teal);font-weight:600}
-  strong{color:var(--ink)}
-  .pill{display:inline-block;background:color-mix(in srgb,var(--teal) 14%,transparent);
-    color:var(--teal);border-radius:999px;padding:3px 12px;font-size:13px;font-weight:700;margin-top:6px}
-  footer{color:var(--muted);font-size:13px;margin-top:28px;border-top:1px solid var(--line);padding-top:16px}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Carburo tiene insieme rifornimenti, ricariche, spese, scadenze e consumi reali della tua auto.">
+  <meta name="theme-color" content="#063f3a">
+  <title>Carburo — quanto ti costa davvero la tua auto?</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <svg viewBox="0 0 120 120" aria-hidden="true">
-      <path d="M60 12 C40 46 22 68 22 92 a38 38 0 0 0 76 0 C98 68 80 46 60 12 Z" fill="var(--teal)"/>
-      <circle cx="49" cy="80" r="6" fill="#fff"/><circle cx="71" cy="80" r="6" fill="#fff"/>
-      <circle cx="50" cy="81" r="2.6" fill="#0B3D38"/><circle cx="72" cy="81" r="2.6" fill="#0B3D38"/>
-      <circle cx="60" cy="102" r="13" fill="#FFF6E6"/>
-      <path d="M50 102 a10 10 0 0 1 20 0" fill="none" stroke="var(--amber)" stroke-width="3.4" stroke-linecap="round"/>
-      <line x1="60" y1="102" x2="67" y2="96" stroke="#0B3D38" stroke-width="2.6" stroke-linecap="round"/>
-    </svg>
-    <div>
-      <h1>Informativa sulla privacy</h1>
-      <p class="sub">Carburo — consumi e costi del veicolo</p>
-    </div>
+  <header class="nav wrap">
+    <a class="brand" href="./" aria-label="Carburo home"><span class="drop">C</span> Carburo</a>
+    <nav><a href="#come-funziona">Come funziona</a><a href="privacy.html">Privacy</a><a href="mailto:giuseppe.chirico.gc1@gmail.com?subject=%5BCarburo%5D%20Assistenza">Supporto</a></nav>
   </header>
-  <div class="pill">Ultimo aggiornamento: 6 luglio 2026</div>
 
-  <div class="card">
-    <h2>In breve</h2>
-    <p><strong>Carburo è un'app <em>local-first</em>: tutti i tuoi dati restano sul tuo dispositivo.</strong>
-       Non esiste un server dello sviluppatore. Non raccogliamo, non conserviamo e non condividiamo
-       i tuoi dati personali. Nessun account, nessuna pubblicità, nessun tracciamento.</p>
+  <main>
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">IL TACCUINO DELLA TUA AUTO</p>
+        <h1>Quanto ti costa<br><em>davvero</em> guidare?</h1>
+        <p class="lead">Registra rifornimenti, ricariche e spese. Carburo trasforma le ricevute sparse in consumi reali, costo al chilometro e scadenze che non dimentichi.</p>
+        <div class="actions">
+          <a class="button primary" href="https://play.google.com/store/apps/details?id=io.github.zn3utr4l.carburo">Scarica su Google Play</a>
+          <a class="button quiet" href="#come-funziona">Scopri cosa misura ↓</a>
+        </div>
+        <p class="micro">Nessun account · Dati sul tuo telefono · Backup ed export CSV</p>
+      </div>
+      <div class="dashboard" aria-label="Esempio riepilogo Carburo">
+        <div class="dash-head"><span>Fiat Panda</span><span class="month">LUGLIO</span></div>
+        <div class="big-number"><small>COSTO REALE</small><strong>0,19 €</strong><span>/ km</span></div>
+        <div class="dash-grid">
+          <div><small>CONSUMO</small><b>5,6 L/100 km</b></div>
+          <div><small>QUESTO MESE</small><b>142,30 €</b></div>
+          <div><small>RISPARMIO ZONA</small><b class="good">+ 8,40 €</b></div>
+          <div><small>PROSSIMA SCADENZA</small><b>Revisione · 18 gg</b></div>
+        </div>
+        <svg class="route" viewBox="0 0 540 110" role="img" aria-label="Andamento dei costi">
+          <path d="M8 85 C80 78 98 33 161 52 S270 100 326 61 430 20 530 38" fill="none" stroke="#e18627" stroke-width="7" stroke-linecap="round"/>
+          <circle cx="530" cy="38" r="10" fill="#fff8e9" stroke="#e18627" stroke-width="5"/>
+        </svg>
+      </div>
+    </section>
 
-    <h2>Dati salvati sul dispositivo</h2>
-    <p>Rifornimenti, spese, veicoli, scadenze, eventuali foto degli scontrini e le impostazioni
-       vengono salvati <strong>solo localmente</strong> (database dell'app sul telefono). Non vengono
-       trasmessi ad alcun server dello sviluppatore.</p>
+    <section class="ticker" aria-label="Unità supportate"><div>KM <i>•</i> MIGLIA <i>•</i> LITRI <i>•</i> GALLONI US/UK <i>•</i> L/100 KM <i>•</i> MPG US/UK <i>•</i> KWH/100 KM</div></section>
 
-    <h2>Posizione</h2>
-    <p>La posizione viene usata <strong>solo su tua richiesta esplicita</strong> e per due funzioni
-       facoltative:</p>
-    <ul>
-      <li>riconoscere il distributore mentre registri un rifornimento;</li>
-      <li>mostrarti i prezzi dei carburanti vicino a te.</li>
-    </ul>
-    <p>Solo in quel momento le coordinate vengono inviate ai servizi pubblici
-       <strong>OpenStreetMap/Overpass</strong> (mappa e ricerca distributori) e
-       <strong>MIMIT – Osservaprezzi Carburanti</strong> (prezzi ufficiali) per ottenere i risultati.
-       Le coordinate non vengono mai memorizzate fuori dal dispositivo né inviate allo sviluppatore.</p>
+    <section id="come-funziona" class="features wrap">
+      <div class="section-title"><p class="eyebrow">DAL PRIMO PIENO AL COSTO ANNUALE</p><h2>Una cronologia che finalmente risponde.</h2></div>
+      <div class="feature-grid">
+        <article><span class="n">01</span><h3>Registra in pochi secondi</h3><p>Importo, carburante o kWh e odometro. Puoi aggiungere distributore, scontrino e posizione solo quando servono.</p></article>
+        <article><span class="n">02</span><h3>Vedi il consumo reale</h3><p>Confronta pieni completi, prezzo medio, autonomia e costo per distanza. Scegli unità metriche, US o UK senza alterare lo storico.</p></article>
+        <article><span class="n">03</span><h3>Conta tutto il resto</h3><p>Assicurazione, bollo, manutenzione, gomme e parcheggi entrano nel costo reale di possesso.</p></article>
+        <article><span class="n">04</span><h3>Non perdere le scadenze</h3><p>Promemoria per data o odometro, backup automatici, JSON completo e CSV pronto per il foglio di calcolo.</p></article>
+      </div>
+    </section>
 
-    <h2>Rete</h2>
-    <p>L'app usa internet solo per scaricare prezzi carburante (MIMIT), riquadri della mappa
-       (OpenStreetMap) e le ricerche di cui sopra — sempre a seguito di una tua azione.</p>
+    <section class="privacy-band">
+      <div class="wrap split"><div><p class="eyebrow">LOCAL-FIRST, PER DAVVERO</p><h2>I conti dell’auto restano tuoi.</h2></div><div><p>Carburo non richiede un account. Il database vive sul dispositivo; scegli tu se e dove salvare il backup. Le funzioni online sono contestuali e dichiarate.</p><a href="privacy.html">Leggi l’informativa privacy →</a></div></div>
+    </section>
 
-    <h2>Notifiche</h2>
-    <p>I promemoria (bollo, revisione, assicurazione) e gli eventuali avvisi prezzo sono generati e
-       pianificati <strong>localmente</strong> sul dispositivo. Non c'è alcun invio di notifiche da un
-       server esterno.</p>
+    <section class="cta wrap"><div><p class="eyebrow">INIZIA DAL PROSSIMO RIFORNIMENTO</p><h2>Tre dati. Una risposta utile.</h2></div><a class="button primary" href="https://play.google.com/store/apps/details?id=io.github.zn3utr4l.carburo">Apri la scheda Play Store</a></section>
+  </main>
 
-    <h2>Backup</h2>
-    <p>I backup che crei restano dove li salvi tu (es. cartella Download o un servizio cloud che
-       scegli tu). Lo sviluppatore non vi accede.</p>
-
-    <h2>Cancellazione dei dati</h2>
-    <p>Puoi eliminare singole voci dall'app; disinstallando Carburo tutti i dati locali vengono rimossi.</p>
-
-    <h2>Minori</h2>
-    <p>L'app non è rivolta ai minori e non raccoglie deliberatamente dati di minori.</p>
-
-    <h2>Contatti</h2>
-    <p>Carburo è open source. Per domande sulla privacy apri una segnalazione sul repository:
-       <a href="https://github.com/zN3utr4l/Carburo">github.com/zN3utr4l/Carburo</a>.</p>
-  </div>
-
-  <footer>
-    Carburo è software libero e gratuito. Questa pagina è pubblicata via GitHub Pages
-    dal repository <a href="https://github.com/zN3utr4l/Carburo">zN3utr4l/Carburo</a>.
-  </footer>
-</div>
+  <footer class="wrap"><span>Carburo · Giuseppe Chirico</span><span><a href="privacy.html">Privacy</a> · <a href="mailto:giuseppe.chirico.gc1@gmail.com?subject=%5BCarburo%5D">Assistenza</a> · <a href="https://github.com/zN3utr4l/Carburo">Codice sorgente</a></span></footer>
 </body>
 </html>
