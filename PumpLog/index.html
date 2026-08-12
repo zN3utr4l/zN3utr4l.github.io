@@ -12,6 +12,7 @@
     <section class="hero shell">
       <div class="copy"><p class="kicker">IL DIARIO CHE NON SALTA UNA SERIE</p><h1>ALLENA.<br>SEGNA.<br><span>SUPERA.</span></h1><p class="lead">Schede, set, recuperi e progressi in un solo gesto. PumpLog funziona anche offline e ti lascia iniziare senza creare un account.</p>
         <div id="join-notice" class="notice"><b>INVITO SFIDA</b><span>Codice <strong id="join-code"></strong> pronto. Installa o apri PumpLog per entrare.</span></div>
+        <div id="partner-notice" class="notice"><b>ALLENAMENTO CONDIVISO</b><span>Codice <strong id="partner-code"></strong> pronto. Apri PumpLog per entrare direttamente nell’allenamento.</span></div>
         <div id="auth-notice" class="notice"><b>ACCESSO</b><span>Apri PumpLog per completare l’operazione.</span></div>
         <div class="actions"><a class="button hot" href="https://play.google.com/store/apps/details?id=io.github.zn3utr4l.pumplog">Scarica su Google Play</a><a id="open-app" class="button outline" href="#" hidden>Apri nell’app</a></div>
         <p class="fine">Offline-first · kg e lb · nessuna pubblicità</p>
@@ -38,6 +39,12 @@
   </main>
   <footer class="shell"><span>PumpLog · Giuseppe Chirico</span><span><a href="mailto:giuseppe.chirico.gc1@gmail.com?subject=%5BPumpLog%5D%20Assistenza">Assistenza</a> · <a href="privacy.html">Privacy</a></span></footer>
   <script>
-  (function(){var q=new URLSearchParams(location.search),join=(q.get('join')||'').toUpperCase(),auth=q.get('auth')==='google';if(join){document.getElementById('join-code').textContent=join;document.getElementById('join-notice').style.display='flex'}else if(auth){document.getElementById('auth-notice').style.display='flex'}if(join||auth){var a=document.getElementById('open-app');a.href='intent://zn3utr4l.github.io/PumpLog/'+location.search+'#Intent;scheme=https;package=io.github.zn3utr4l.pumplog;end';a.hidden=false}})();
+  (function(){
+    var q=new URLSearchParams(location.search),join=(q.get('join')||'').toUpperCase(),partner=(q.get('partner')||'').toUpperCase(),auth=q.get('auth')==='google';
+    if(join){document.getElementById('join-code').textContent=join;document.getElementById('join-notice').style.display='flex'}
+    else if(partner){document.getElementById('partner-code').textContent=partner;document.getElementById('partner-notice').style.display='flex'}
+    else if(auth){document.getElementById('auth-notice').style.display='flex'}
+    if(join||partner||auth){var a=document.getElementById('open-app');a.href='intent://zn3utr4l.github.io/PumpLog/'+location.search+'#Intent;scheme=https;package=io.github.zn3utr4l.pumplog;end';a.hidden=false}
+  })();
   </script>
 </body></html>
