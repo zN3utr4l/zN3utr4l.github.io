@@ -1,0 +1,50 @@
+name: Prezzi carburanti
+
+# Rigenera ogni giorno `Carburo/prezzi/index.html` dalle medie regionali del
+# MIMIT. Gira alle 06:30 UTC (08:30 in Italia d'estate): il ministero pubblica
+# l'aggiornamento in mattinata.
+#
+# ⚠️ Se il MIMIT non risponde o il CSV arriva vuoto lo script esce in errore e
+# NON scrive: resta online la pagina di ieri, che porta la sua data in chiaro.
+# Un job rosso qui non rompe niente, dice solo che oggi il dato non è arrivato.
+on:
+  schedule:
+    - cron: '30 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prezzi
+  cancel-in-progress: false
+
+jobs:
+  aggiorna:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      # Il parser e' il pezzo rischioso: se il formato del CSV cambia deve
+      # rifiutarsi di scrivere, non pubblicare una pagina vuota.
+      - name: Test del parser
+        run: node --test scripts/build-prezzi.test.mjs
+
+      - name: Genera la pagina dai dati di oggi
+        run: node scripts/build-prezzi.mjs
+
+      - name: Committa solo se i numeri sono cambiati
+        run: |
+          if git diff --quiet -- Carburo/prezzi/index.html; then
+            echo "Nessuna variazione: niente commit."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add Carburo/prezzi/index.html
+          git commit -m "chore(prezzi): medie regionali del $(date -u +%F)"
+          git push
