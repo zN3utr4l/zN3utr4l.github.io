@@ -82,11 +82,14 @@ mean to regenerate the page, never as verification.
 
 ## Git and synchronization
 
-- `main` is PR-gated: branch, push, open the pull request, wait for green CI,
-  merge. Commit as `zN3utr4l`, and run `gh auth switch --user zN3utr4l` before
-  any push.
-- The daily workflow pushes its own `chore(prezzi): …` commit to `main`, so
-  `git fetch` and start from the fetched state; never force-push over it.
+- Human changes go through a pull request by convention, not by enforcement:
+  `main` carries no branch protection here, so branch, push, open the pull
+  request and merge it yourself once the checks you care about are green. Commit
+  as `zN3utr4l`, and run `gh auth switch --user zN3utr4l` before any push.
+- The one direct push to `main` is automated: `.github/workflows/prezzi.yml`
+  commits and pushes its own `chore(prezzi): …` commit as `github-actions[bot]`.
+  Leave that exception alone, `git fetch` and start from the fetched state, and
+  never force-push over it.
 - `CLAUDE.md` is canonical and `AGENTS.md` is its byte-identical copy. This
   repository has no hook to mirror them: every change to this file must update
   both copies, byte for byte, in the same commit.
