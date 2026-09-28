@@ -44,8 +44,9 @@ mean to regenerate the page, never as verification.
 
 ## Always preserve
 
-- `.well-known/assetlinks.json` is a trust contract, not configuration. Its two
-  SHA-256 fingerprints are the upload key and the Play app-signing key: never
+- `.well-known/assetlinks.json` is a trust contract, not configuration. Its three
+  SHA-256 fingerprints are the upload key, the Play app-signing key and the
+  debug key that signs sideload APKs built on the maintainer's PC: never
   guess a fingerprint, drop one, or reformat the file casually — PumpLog's App
   Links and its in-app Google sign-in break silently.
 - `Carburo/prezzi/index.html` is generated. Change it through
