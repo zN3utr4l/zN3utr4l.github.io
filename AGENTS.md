@@ -86,7 +86,9 @@ mean to regenerate the page, never as verification.
 - Human changes go through a pull request by convention, not by enforcement:
   `main` carries no branch protection here, so branch, push, open the pull
   request and merge it yourself once the checks you care about are green. Commit
-  as `zN3utr4l`, and run `gh auth switch --user zN3utr4l` before any push.
+  as `zN3utr4l`. Before a push, check that `gh api user --jq .login` prints
+  `zN3utr4l`: the gh wrapper picks the account by folder, while `gh auth switch`
+  changes it globally.
 - The one direct push to `main` is automated: `.github/workflows/prezzi.yml`
   commits and pushes its own `chore(prezzi): …` commit as `github-actions[bot]`.
   Leave that exception alone, `git fetch` and start from the fetched state, and
