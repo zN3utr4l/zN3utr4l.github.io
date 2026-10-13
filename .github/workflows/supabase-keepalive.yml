@@ -1,9 +1,9 @@
-name: Supabase keep-alive (PumpLog)
+name: Supabase keep-alive
 
-# Il free tier di Supabase mette in pausa il progetto dopo ~7 giorni di totale
-# inattività. Un ping ogni 3 giorni tiene sveglio il DB di PumpLog.
-# Vive qui e non nel repo PumpLog: questo repo è pubblico, quindi i runner
-# GitHub-hosted sono gratuiti; sul repo privato il job era bloccato dal billing.
+# Il free tier di Supabase mette in pausa un progetto dopo ~7 giorni di totale
+# inattività. Un ping ogni 3 giorni tiene svegli i DB di PumpLog e Carburo.
+# Vive qui e non nei repo delle app: questo repo è pubblico, quindi i runner
+# GitHub-hosted sono gratuiti; sui repo privati il job era bloccato dal billing.
 
 on:
   schedule:
@@ -16,17 +16,21 @@ jobs:
   ping:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [PUMPLOG, CARBURO]
     defaults:
       run:
         shell: bash
     steps:
       - name: Ping Supabase REST endpoint
         env:
-          SUPABASE_URL: ${{ secrets.PUMPLOG_SUPABASE_URL }}
-          SUPABASE_KEY: ${{ secrets.PUMPLOG_SUPABASE_PUBLISHABLE_KEY }}
+          SUPABASE_URL: ${{ secrets[format('{0}_SUPABASE_URL', matrix.app)] }}
+          SUPABASE_KEY: ${{ secrets[format('{0}_SUPABASE_PUBLISHABLE_KEY', matrix.app)] }}
         run: |
           if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_KEY" ]; then
-            echo "Secret PUMPLOG_SUPABASE_URL / PUMPLOG_SUPABASE_PUBLISHABLE_KEY mancanti"; exit 1
+            echo "Secret ${{ matrix.app }}_SUPABASE_URL / ${{ matrix.app }}_SUPABASE_PUBLISHABLE_KEY mancanti"; exit 1
           fi
           code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
             "$SUPABASE_URL/rest/v1/" -H "apikey: $SUPABASE_KEY") || code=000
