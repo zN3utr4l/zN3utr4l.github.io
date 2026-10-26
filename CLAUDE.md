@@ -20,7 +20,7 @@ that owns it — the generator, the workflow, or the legal page itself.
 | `PumpLog/` | [app landing](PumpLog/index.html), [`privacy.html`](PumpLog/privacy.html), [`community-terms.html`](PumpLog/community-terms.html), [`community-rules.html`](PumpLog/community-rules.html), [`delete-account.html`](PumpLog/delete-account.html), `style.css`, [`sw.js`](PumpLog/sw.js). |
 | [`.well-known/assetlinks.json`](.well-known/assetlinks.json) | Android App Links trust contract for `io.github.zn3utr4l.pumplog`. |
 | [`scripts/build-prezzi.mjs`](scripts/build-prezzi.mjs) | Sole owner of `Carburo/prezzi/index.html`, tested by [`build-prezzi.test.mjs`](scripts/build-prezzi.test.mjs). |
-| [`.github/workflows/prezzi.yml`](.github/workflows/prezzi.yml) | Daily test, regeneration and commit of the price page. |
+| [`.github/workflows/prezzi.yml`](.github/workflows/prezzi.yml) | Parser tests on push/PR to main affecting scripts or this workflow. |
 | `.nojekyll` | Serves the tree as it is, without Jekyll. |
 
 `PumpLog/index.html` is also the App Link landing: it reads `join`, `partner`
@@ -58,8 +58,9 @@ mean to regenerate the page, never as verification.
   invented numbers.
 - The prices belong in the HTML body, not in a script: the page exists to be
   read by search engines without executing JavaScript.
-- `.github/workflows/prezzi.yml` runs the parser test, regenerates, and commits
-  only when the numbers really changed. Keep the test step before the generator.
+- `.github/workflows/prezzi.yml` runs only the parser test, without networked
+  regeneration. Carburo's private CI tests, regenerates daily on a runner that
+  reaches MIMIT, and pushes the page with a deploy key only when it changes.
 - A public or legal page must stay true to the shipped app. When app behavior
   changes around data collection, social features, backup, account deletion,
   App Links or external providers, correct the matching page in the same change
@@ -89,8 +90,8 @@ mean to regenerate the page, never as verification.
   as `zN3utr4l`. Before a push, check that `gh api user --jq .login` prints
   `zN3utr4l`: the gh wrapper picks the account by folder, while `gh auth switch`
   changes it globally.
-- The one direct push to `main` is automated: `.github/workflows/prezzi.yml`
-  commits and pushes its own `chore(prezzi): …` commit as `github-actions[bot]`.
+- The one direct push to `main` is automated: Carburo's private CI
+  commits and pushes its own `chore(prezzi): …` commit with a deploy key.
   Leave that exception alone, `git fetch` and start from the fetched state, and
   never force-push over it.
 - `CLAUDE.md` is canonical and `AGENTS.md` is its byte-identical copy. This
