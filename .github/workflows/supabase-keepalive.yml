@@ -1,7 +1,8 @@
 name: Supabase keep-alive
 
 # Il free tier di Supabase mette in pausa un progetto dopo ~7 giorni di totale
-# inattività. Un ping ogni 3 giorni tiene svegli i DB di PumpLog e Carburo.
+# inattività. Ogni 3 giorni il controllo PumpLog legge il database via PostgREST;
+# quello Carburo verifica che il progetto risponda e che la chiave sia valida.
 # Vive qui e non nei repo delle app: questo repo è pubblico, quindi i runner
 # GitHub-hosted sono gratuiti; sui repo privati il job era bloccato dal billing.
 
@@ -19,24 +20,30 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        app: [PUMPLOG, CARBURO]
+        include:
+          - app: PUMPLOG
+            path: /rest/v1/profiles?select=id&limit=1
+          - app: CARBURO
+            path: /auth/v1/health
     defaults:
       run:
         shell: bash
     steps:
-      - name: Ping Supabase REST endpoint
+      - name: Check Supabase project
         env:
           SUPABASE_URL: ${{ secrets[format('{0}_SUPABASE_URL', matrix.app)] }}
           SUPABASE_KEY: ${{ secrets[format('{0}_SUPABASE_PUBLISHABLE_KEY', matrix.app)] }}
+          SUPABASE_PATH: ${{ matrix.path }}
         run: |
           if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_KEY" ]; then
             echo "Secret ${{ matrix.app }}_SUPABASE_URL / ${{ matrix.app }}_SUPABASE_PUBLISHABLE_KEY mancanti"; exit 1
           fi
           code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "$SUPABASE_URL/rest/v1/" -H "apikey: $SUPABASE_KEY") || code=000
-          echo "Supabase REST responded: $code"
-          # Qualsiasi risposta HTTP conta come attività; fallisce solo se irraggiungibile.
+            "$SUPABASE_URL$SUPABASE_PATH" -H "apikey: $SUPABASE_KEY") || code=000
+          echo "Supabase check responded: $code"
           case "$code" in
-            2*|3*|4*) exit 0 ;;
-            *) echo "Endpoint irraggiungibile"; exit 1 ;;
+            2[0-9][0-9]) exit 0 ;;
+            401|403) echo "Supabase: chiave o permessi rifiutati ($code)"; exit 1 ;;
+            000) echo "Supabase irraggiungibile"; exit 1 ;;
+            *) echo "Risposta Supabase non riuscita: $code"; exit 1 ;;
           esac
