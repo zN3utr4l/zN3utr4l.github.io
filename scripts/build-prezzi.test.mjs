@@ -83,3 +83,47 @@ test('le virgolette nei nomi non rompono l’HTML', () => {
   assert.doesNotMatch(html, /Valle d<script>/)
   assert.match(html, /Valle d&lt;script&gt;/)
 })
+
+test('i dati freschi riportano la data senza avvisi', (t) => {
+  t.mock.timers.enable({ apis: ['Date'], now: new Date('2026-08-28T12:00:00Z') })
+  const html = renderPagina(parseMediaRegionale(CSV))
+
+  for (const tag of ['<title>', '<h1>', '<meta name="description"']) {
+    assert.match(html.slice(html.indexOf(tag)).split(/<\/(?:title|h1|p)>|\n  <meta name="theme-color"/)[0], /28 agosto 2026/)
+  }
+  assert.match(html, /<title>Prezzi benzina e gasolio/)
+  assert.match(html, /<h1>Prezzi benzina e gasolio/)
+  assert.doesNotMatch(html, /Dati non aggiornati|oggi/i)
+})
+
+test('i dati di dodici giorni prima sono segnalati come non aggiornati', (t) => {
+  t.mock.timers.enable({ apis: ['Date'], now: new Date('2026-09-09T00:00:00Z') })
+  const html = renderPagina(parseMediaRegionale(CSV))
+
+  for (const tag of ['<title>', '<h1>', '<meta name="description"', '<p class="callout">']) {
+    const testo = html.slice(html.indexOf(tag)).split(/<\/(?:title|h1|p)>|\n  <meta name="theme-color"/)[0]
+    assert.match(testo, /28 agosto 2026/)
+    assert.match(testo, /Dati non aggiornati/)
+  }
+  assert.doesNotMatch(html, /oggi|aggiornate ogni giorno|adesso/i)
+})
+
+test('l’avviso scatta solo oltre due giorni dalla data del dataset', (t) => {
+  t.mock.timers.enable({ apis: ['Date'], now: new Date('2026-08-30T00:00:00Z') })
+  const dataset = parseMediaRegionale(CSV)
+  assert.doesNotMatch(renderPagina(dataset), /Dati non aggiornati/)
+  t.mock.timers.tick(1)
+  assert.match(renderPagina(dataset), /Dati non aggiornati/)
+})
+
+test('rifiuta date mancanti, illeggibili o impossibili', () => {
+  for (const data of ['', 'data sconosciuta', '31-02-2026', '28-13-2026']) {
+    assert.throws(() => parseMediaRegionale(CSV.replace('28-08-2026', data)), /data.*valida/i)
+  }
+})
+
+test('il rendering rifiuta un dataset senza data valida', () => {
+  for (const data of [null, new Date('non valida')]) {
+    assert.throws(() => renderPagina({ ...parseMediaRegionale(CSV), data }), /data.*valida/i)
+  }
+})
