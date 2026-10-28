@@ -21,6 +21,8 @@ import { pathToFileURL } from 'node:url'
 const CSV_URL = 'https://www.mimit.gov.it/images/stories/carburanti/MediaRegionaleStradale.csv'
 const OUT = 'Carburo/prezzi/index.html'
 const PLAY = 'https://play.google.com/store/apps/details?id=io.github.zn3utr4l.carburo'
+// Due giorni tollerano il normale intervallo fra le pubblicazioni giornaliere.
+const SOGLIA_DATI_OBSOLETI_MS = 2 * 24 * 60 * 60 * 1000
 
 const MESI = [
   'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno',
@@ -51,6 +53,13 @@ export function parseMediaRegionale(csv) {
   const aggiornamento = (righe[0] ?? '').match(/(\d{2})-(\d{2})-(\d{4})/)
   const intestazione = righe.findIndex((r) => r.toUpperCase().startsWith('REGIONE;'))
   if (intestazione < 0) throw new Error('CSV senza intestazione REGIONE;…')
+  if (!aggiornamento) throw new Error('CSV senza data valida di aggiornamento')
+  const data = new Date(Date.UTC(+aggiornamento[3], +aggiornamento[2] - 1, +aggiornamento[1]))
+  if (data.getUTCFullYear() !== +aggiornamento[3]
+    || data.getUTCMonth() !== +aggiornamento[2] - 1
+    || data.getUTCDate() !== +aggiornamento[1]) {
+    throw new Error('CSV senza data valida di aggiornamento')
+  }
 
   const prezzi = new Map()
   for (const riga of righe.slice(intestazione + 1)) {
@@ -65,9 +74,7 @@ export function parseMediaRegionale(csv) {
     (a, b) => a.localeCompare(b, 'it')
   )
   return {
-    data: aggiornamento
-      ? new Date(Date.UTC(+aggiornamento[3], +aggiornamento[2] - 1, +aggiornamento[1]))
-      : null,
+    data,
     regioni,
     prezzo: (regione, tipo, erogazione) => prezzi.get(`${regione}|${tipo}|${erogazione}`) ?? null
   }
@@ -76,7 +83,7 @@ export function parseMediaRegionale(csv) {
 const fmt = (v) => (v == null ? '—' : v.toFixed(3).replace('.', ','))
 
 function dataLunga(d) {
-  if (!d) return 'oggi'
+  if (!(d instanceof Date) || !Number.isFinite(d.getTime())) throw new Error('Dataset senza data valida')
   return `${d.getUTCDate()} ${MESI[d.getUTCMonth()]} ${d.getUTCFullYear()}`
 }
 
@@ -91,7 +98,10 @@ function media(dataset, tipo, erogazione) {
 
 export function renderPagina(dataset) {
   const giorno = dataLunga(dataset.data)
-  const iso = dataset.data ? dataset.data.toISOString().slice(0, 10) : ''
+  const iso = dataset.data.toISOString().slice(0, 10)
+  const avviso = Date.now() - dataset.data.getTime() > SOGLIA_DATI_OBSOLETI_MS
+    ? 'Dati non aggiornati. ' : ''
+  const titolo = `Prezzi benzina e gasolio — ${avviso}Medie del ${giorno}`
   const benzina = media(dataset, 'Benzina', 'SELF')
   const gasolio = media(dataset, 'Gasolio', 'SELF')
 
@@ -107,9 +117,9 @@ export function renderPagina(dataset) {
   }).join('\n')
 
   const descrizione = benzina && gasolio
-    ? `Medie regionali ufficiali MIMIT del ${giorno}: benzina self ${fmt(benzina)} €/l, `
-      + `gasolio self ${fmt(gasolio)} €/l. Tutte le regioni italiane, aggiornate ogni giorno.`
-    : `Medie regionali ufficiali MIMIT del ${giorno} per tutte le regioni italiane.`
+    ? `${avviso}Medie regionali ufficiali MIMIT del ${giorno}: benzina self ${fmt(benzina)} €/l, `
+      + `gasolio self ${fmt(gasolio)} €/l. Tutte le regioni italiane.`
+    : `${avviso}Medie regionali ufficiali MIMIT del ${giorno} per tutte le regioni italiane.`
 
   return `<!doctype html>
 <html lang="it">
@@ -119,7 +129,7 @@ export function renderPagina(dataset) {
   <meta name="description" content="${escape(descrizione)}">
   <meta name="theme-color" content="#063f3a">
   <link rel="canonical" href="https://zn3utr4l.github.io/Carburo/prezzi/">
-  <title>Prezzi benzina e gasolio oggi — medie regionali MIMIT</title>
+  <title>${escape(titolo)} — MIMIT</title>
   <link rel="stylesheet" href="../style.css">
   <script type="application/ld+json">
 ${JSON.stringify({
@@ -143,15 +153,16 @@ ${JSON.stringify({
 
   <main class="legal">
     <p class="eyebrow">DATI UFFICIALI MIMIT</p>
-    <h1>Prezzi benzina e gasolio oggi</h1>
+    <h1>${escape(titolo)}</h1>
     <p class="updated">Medie regionali del ${escape(giorno)} &middot; fonte: Osservaprezzi Carburanti del MIMIT</p>
 
     <article>
       <p class="callout">
         ${benzina && gasolio
-    ? `Oggi la media italiana &egrave; <strong>${fmt(benzina)} &euro;/l</strong> per la benzina self e `
+    ? `${avviso ? `Dati non aggiornati: il ${escape(giorno)} la media italiana era` : 'La media italiana &egrave;'} `
+        + `<strong>${fmt(benzina)} &euro;/l</strong> per la benzina self e `
         + `<strong>${fmt(gasolio)} &euro;/l</strong> per il gasolio self. Sotto trovi la tua regione.`
-    : 'Sotto trovi le medie regionali pubblicate oggi.'}
+    : `${avviso ? `Dati non aggiornati: sotto trovi le medie regionali del ${escape(giorno)}.` : 'Sotto trovi le medie regionali pubblicate dal MIMIT.'}`}
       </p>
 
       <h2>Medie per regione (&euro;/litro)</h2>
@@ -165,21 +176,21 @@ ${righe}
           </tbody>
         </table>
       </div>
-      <p class="micro">GPL e metano sono in &euro;/kg o &euro;/litro secondo la rilevazione del MIMIT. Un trattino significa che per quella regione il dato non &egrave; stato pubblicato oggi.</p>
+      <p class="micro">GPL e metano sono in &euro;/kg o &euro;/litro secondo la rilevazione del MIMIT. Un trattino significa che per quella regione il dato non &egrave; disponibile nella rilevazione del ${escape(giorno)}.</p>
 
       <h2>Che cosa sono queste medie</h2>
       <p>Il MIMIT raccoglie i prezzi che ogni gestore &egrave; obbligato a comunicare e ne pubblica ogni giorno la media per regione, distinguendo self e servito. Sono quindi <strong>prezzi ufficiali</strong>, non stime: la stessa fonte che usa l&rsquo;app.</p>
       <p>Una media regionale serve a capire se stai pagando sopra o sotto il mercato, non a scegliere dove fermarti: fra due distributori della stessa citt&agrave; la differenza arriva facilmente a dieci centesimi al litro.</p>
 
       <h2>Il prezzo del singolo distributore</h2>
-      <p>Per vedere quanto costa <em>adesso</em> il distributore sotto casa, e quanto stai pagando in pi&ugrave; o in meno della media della tua zona, serve il dato per impianto. Carburo lo mostra su una mappa con gli stessi dati ufficiali, calcola il tuo consumo reale pieno a pieno e tiene il conto di quanto ti costa davvero l&rsquo;auto.</p>
+      <p>Per consultare i prezzi del distributore sotto casa e confrontarli con la media della tua zona, serve il dato per impianto. Carburo lo mostra su una mappa con gli stessi dati ufficiali, calcola il tuo consumo reale pieno a pieno e tiene il conto di quanto ti costa davvero l&rsquo;auto.</p>
       <p><a class="button primary" href="${PLAY}">Scarica Carburo su Google Play</a></p>
       <p class="micro">Gratis &middot; nessun account &middot; i dati restano sul telefono</p>
     </article>
   </main>
 
   <footer class="wrap">
-    <span>&copy; ${dataset.data ? dataset.data.getUTCFullYear() : new Date().getUTCFullYear()} Giuseppe Chirico</span>
+    <span>&copy; ${dataset.data.getUTCFullYear()} Giuseppe Chirico</span>
     <span><a href="../">Carburo</a> &middot; <a href="../privacy.html">Privacy</a></span>
   </footer>
 </body>
