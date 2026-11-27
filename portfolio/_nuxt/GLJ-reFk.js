@@ -1,0 +1,2 @@
+//# allFunctionsCalledOnLoad
+import{H as e,N as t,O as n,Z as r,z as i}from"#entry";import{i as a}from"./ByU6tI9J.js";var o=[`href`,`download`],s=Object.assign(a(t({__name:`Button`,props:{href:{},variant:{},download:{type:Boolean}},setup(t){return(a,s)=>(i(),n(`a`,{href:t.href,download:t.download||void 0,class:r([`btn`,`btn--${t.variant??`primary`}`])},[e(a.$slots,`default`,{},void 0,!0)],10,o))}}),[[`__scopeId`,`data-v-438058bc`]]),{__name:`UiButton`});export{s as t};

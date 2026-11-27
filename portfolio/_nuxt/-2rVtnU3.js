@@ -1,0 +1,1 @@
+function e(e,t,n){let r=new Map(e.map(e=>[e.date,e.total])),i=Date.parse(t),a=(new Date(i).getUTCDay()+6)%7,o=[];for(let e=i,t=0;e<=Date.parse(n);e+=864e5,t++){let n=new Date(e).toISOString().slice(0,10);o.push({w:Math.floor((t+a)/7),wd:(t+a)%7,n:r.get(n)??0,date:n})}return o}export{e as skyCells};

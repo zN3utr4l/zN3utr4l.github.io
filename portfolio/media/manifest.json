@@ -210,7 +210,7 @@
       "width": 390,
       "height": 702,
       "durationS": 7.9,
-      "poster": "media/posters/preview-carburo.avif",
+      "poster": "media/posters/preview-carburo-home.avif",
       "burnedInSubs": false
     }
   ],
@@ -270,6 +270,29 @@
         "media/screens/cattedra/it/04-punteggio.avif",
         "media/screens/cattedra/it/05-scadenze.avif"
       ]
+    }
+  },
+  "mascots": {
+    "pumplog": {
+      "name": "ghisa",
+      "src": "media/mascots/ghisa.avif",
+      "width": 264,
+      "height": 296,
+      "frames": 6
+    },
+    "carburo": {
+      "name": "goccio",
+      "src": "media/mascots/goccio.avif",
+      "width": 264,
+      "height": 288,
+      "frames": 6
+    },
+    "cattedra": {
+      "name": "fibbia",
+      "src": "media/mascots/fibbia.avif",
+      "width": 264,
+      "height": 234,
+      "frames": 6
     }
   }
 }

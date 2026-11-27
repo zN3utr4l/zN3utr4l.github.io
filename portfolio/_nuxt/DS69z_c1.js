@@ -1,2 +1,0 @@
-//# allFunctionsCalledOnLoad
-import{L as e,O as t,z as n}from"#entry";import{i as r}from"./cWeI4E5K.js";var i={},a={class:`tag mono`};function o(r,i){return e(),t(`span`,a,[n(r.$slots,`default`,{},void 0,!0)])}var s=Object.assign(r(i,[[`render`,o],[`__scopeId`,`data-v-87233e90`]]),{__name:`UiTag`});export{s as t};

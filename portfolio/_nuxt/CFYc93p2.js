@@ -1,2 +1,0 @@
-//# allFunctionsCalledOnLoad
-var e=e=>e===`it`?`it-IT`:`en-US`,t=(t,n)=>new Intl.NumberFormat(e(n),{useGrouping:`always`}).format(t),n=(t,n)=>new Intl.DateTimeFormat(e(n),{month:`short`,year:`numeric`,timeZone:`UTC`}).format(new Date(`${t}-01T00:00:00Z`));export{t as n,n as t};
