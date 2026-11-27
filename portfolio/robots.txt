@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /og
+Disallow: /it/og
+
+Sitemap: https://zn3utr4l.github.io/portfolio/sitemap.xml

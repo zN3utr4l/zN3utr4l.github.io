@@ -1,0 +1,2 @@
+//# allFunctionsCalledOnLoad
+import{F as e,W as t}from"#entry";import{r as n}from"./xc9cM8st.js";function r(){let r=t(!1),i;async function a(){try{await navigator.clipboard.writeText(n.email)}catch{return location.href=`mailto:${n.email}`,!1}return r.value=!0,clearTimeout(i),i=setTimeout(()=>r.value=!1,2400),!0}return e(()=>clearTimeout(i)),{copied:r,copy:a}}export{r as t};

@@ -1,0 +1,2 @@
+//# allFunctionsCalledOnLoad
+import{G as e,J as t,L as n,N as r,O as i,T as a,n as o,r as s,u as c}from"#entry";import{i as l}from"./cWeI4E5K.js";var u={class:`og`},d={class:`og__name`},f={class:`og__line`},p={class:`og__meta mono`},m=l(r({__name:`og`,setup(r){let l=s();return c({robots:`noindex, nofollow`}),(r,s)=>(n(),i(`main`,u,[s[0]||=a(`p`,{class:`og__mark mono`},` GC `,-1),a(`h1`,d,t(e(o).name),1),a(`p`,f,t(e(l)(e(o).line)),1),a(`p`,p,t(e(l)(e(o).eyebrow)),1)]))}}),[[`__scopeId`,`data-v-77c7e606`]]);export{m as default};

@@ -1,0 +1,275 @@
+{
+  "videos": [
+    {
+      "id": "carburo-2026-W48-1",
+      "app": "carburo",
+      "kind": "author",
+      "title": {
+        "en": "The speedometer’s eighty",
+        "it": "Gli ottanta del tachimetro"
+      },
+      "src": {
+        "mp4": "media/promo/carburo-2026-W48-1.mp4",
+        "webm": "media/promo/carburo-2026-W48-1.webm"
+      },
+      "width": 720,
+      "height": 1280,
+      "durationS": 40.62,
+      "poster": "media/posters/carburo-2026-W48-1.avif",
+      "captions": {
+        "it": "media/captions/carburo-2026-W48-1.it.vtt"
+      },
+      "burnedInSubs": true
+    },
+    {
+      "id": "carburo-2026-W48-2",
+      "app": "carburo",
+      "kind": "author",
+      "title": {
+        "en": "The arrow next to the pump",
+        "it": "La freccia accanto alla pompa"
+      },
+      "src": {
+        "mp4": "media/promo/carburo-2026-W48-2.mp4",
+        "webm": "media/promo/carburo-2026-W48-2.webm"
+      },
+      "width": 720,
+      "height": 1280,
+      "durationS": 47.4,
+      "poster": "media/posters/carburo-2026-W48-2.avif",
+      "captions": {
+        "it": "media/captions/carburo-2026-W48-2.it.vtt"
+      },
+      "burnedInSubs": true
+    },
+    {
+      "id": "carburo-2026-W49-1",
+      "app": "carburo",
+      "kind": "author",
+      "title": {
+        "en": "The number on the sidewall",
+        "it": "Il numero sul fianco"
+      },
+      "src": {
+        "mp4": "media/promo/carburo-2026-W49-1.mp4",
+        "webm": "media/promo/carburo-2026-W49-1.webm"
+      },
+      "width": 720,
+      "height": 1280,
+      "durationS": 52.1,
+      "poster": "media/posters/carburo-2026-W49-1.avif",
+      "captions": {
+        "it": "media/captions/carburo-2026-W49-1.it.vtt"
+      },
+      "burnedInSubs": true
+    },
+    {
+      "id": "carburo-2026-W49-2",
+      "app": "carburo",
+      "kind": "author",
+      "title": {
+        "en": "Does my belt run in oil?",
+        "it": "La mia cinghia gira nell’olio?"
+      },
+      "src": {
+        "mp4": "media/promo/carburo-2026-W49-2.mp4",
+        "webm": "media/promo/carburo-2026-W49-2.webm"
+      },
+      "width": 720,
+      "height": 1280,
+      "durationS": 68.42,
+      "poster": "media/posters/carburo-2026-W49-2.avif",
+      "captions": {
+        "it": "media/captions/carburo-2026-W49-2.it.vtt"
+      },
+      "burnedInSubs": true
+    },
+    {
+      "id": "pumplog-2026-W48-1",
+      "app": "pumplog",
+      "kind": "author",
+      "title": {
+        "en": "Does the biceps remember the weights?",
+        "it": "Il bicipite si ricorda dei pesi?"
+      },
+      "src": {
+        "mp4": "media/promo/pumplog-2026-W48-1.mp4",
+        "webm": "media/promo/pumplog-2026-W48-1.webm"
+      },
+      "width": 720,
+      "height": 1280,
+      "durationS": 53.38,
+      "poster": "media/posters/pumplog-2026-W48-1.avif",
+      "captions": {
+        "it": "media/captions/pumplog-2026-W48-1.it.vtt"
+      },
+      "burnedInSubs": true
+    },
+    {
+      "id": "launch-pumplog-vertical",
+      "app": "pumplog",
+      "kind": "launch",
+      "title": {
+        "en": "PumpLog: a real gym session, from start to celebration",
+        "it": "PumpLog: una vera sessione di palestra, dall'inizio alla festa"
+      },
+      "src": {
+        "mp4": "media/promo/launch-pumplog-vertical.mp4",
+        "webm": "media/promo/launch-pumplog-vertical.webm"
+      },
+      "width": 720,
+      "height": 1280,
+      "durationS": 46,
+      "poster": "media/posters/launch-pumplog-vertical.avif",
+      "burnedInSubs": false
+    },
+    {
+      "id": "launch-carburo-vertical",
+      "app": "carburo",
+      "kind": "launch",
+      "title": {
+        "en": "Carburo: a week behind the wheel, and you know what it really costs you",
+        "it": "Carburo: una settimana al volante, e sai quanto ti costa davvero"
+      },
+      "src": {
+        "mp4": "media/promo/launch-carburo-vertical.mp4",
+        "webm": "media/promo/launch-carburo-vertical.webm"
+      },
+      "width": 720,
+      "height": 1280,
+      "durationS": 52,
+      "poster": "media/posters/launch-carburo-vertical.avif",
+      "burnedInSubs": false
+    },
+    {
+      "id": "launch-cattedra-vertical",
+      "app": "cattedra",
+      "kind": "launch",
+      "title": {
+        "en": "Cattedra: your GPS application, one stamp at a time with Fibbia",
+        "it": "Cattedra: la tua domanda GPS, un timbro alla volta con Fibbia"
+      },
+      "src": {
+        "mp4": "media/promo/launch-cattedra-vertical.mp4",
+        "webm": "media/promo/launch-cattedra-vertical.webm"
+      },
+      "width": 720,
+      "height": 1280,
+      "durationS": 90.5,
+      "poster": "media/posters/launch-cattedra-vertical.avif",
+      "burnedInSubs": false
+    },
+    {
+      "id": "preview-pumplog",
+      "app": "pumplog",
+      "kind": "preview",
+      "title": {
+        "en": "PumpLog in use: logging a workout",
+        "it": "PumpLog in uso: registrazione di un allenamento"
+      },
+      "src": {
+        "mp4": "media/previews/preview-pumplog.mp4",
+        "webm": "media/previews/preview-pumplog.webm"
+      },
+      "width": 390,
+      "height": 844,
+      "durationS": 10,
+      "poster": "media/posters/preview-pumplog.avif",
+      "burnedInSubs": false
+    },
+    {
+      "id": "preview-cattedra",
+      "app": "cattedra",
+      "kind": "preview",
+      "title": {
+        "en": "Cattedra in use: browsing teacher calls and appointments",
+        "it": "Cattedra in uso: consultazione di interpelli e nomine"
+      },
+      "src": {
+        "mp4": "media/previews/preview-cattedra.mp4",
+        "webm": "media/previews/preview-cattedra.webm"
+      },
+      "width": 390,
+      "height": 844,
+      "durationS": 10.6,
+      "poster": "media/posters/preview-cattedra.avif",
+      "burnedInSubs": false
+    },
+    {
+      "id": "preview-carburo",
+      "app": "carburo",
+      "kind": "preview",
+      "title": {
+        "en": "Carburo in use: a saved fill-up, fuel prices nearby, deadlines and costs",
+        "it": "Carburo in uso: un rifornimento salvato, i prezzi dei distributori vicini, le scadenze e i costi"
+      },
+      "src": {
+        "mp4": "media/previews/preview-carburo.mp4",
+        "webm": "media/previews/preview-carburo.webm"
+      },
+      "width": 390,
+      "height": 702,
+      "durationS": 7.9,
+      "poster": "media/posters/preview-carburo.avif",
+      "burnedInSubs": false
+    }
+  ],
+  "screens": {
+    "pumplog": {
+      "en": [
+        "media/screens/pumplog/en/01.avif",
+        "media/screens/pumplog/en/02.avif",
+        "media/screens/pumplog/en/03.avif",
+        "media/screens/pumplog/en/04.avif",
+        "media/screens/pumplog/en/05.avif",
+        "media/screens/pumplog/en/06.avif",
+        "media/screens/pumplog/en/07.avif",
+        "media/screens/pumplog/en/08.avif"
+      ],
+      "it": [
+        "media/screens/pumplog/it/01.avif",
+        "media/screens/pumplog/it/02.avif",
+        "media/screens/pumplog/it/03.avif",
+        "media/screens/pumplog/it/04.avif",
+        "media/screens/pumplog/it/05.avif",
+        "media/screens/pumplog/it/06.avif",
+        "media/screens/pumplog/it/07.avif",
+        "media/screens/pumplog/it/08.avif"
+      ]
+    },
+    "carburo": {
+      "en": [
+        "media/screens/carburo/en/01.avif",
+        "media/screens/carburo/en/02.avif",
+        "media/screens/carburo/en/03.avif",
+        "media/screens/carburo/en/04.avif",
+        "media/screens/carburo/en/05.avif",
+        "media/screens/carburo/en/06.avif"
+      ],
+      "it": [
+        "media/screens/carburo/it/01.avif",
+        "media/screens/carburo/it/02.avif",
+        "media/screens/carburo/it/03.avif",
+        "media/screens/carburo/it/04.avif",
+        "media/screens/carburo/it/05.avif",
+        "media/screens/carburo/it/06.avif"
+      ]
+    },
+    "cattedra": {
+      "en": [
+        "media/screens/cattedra/it/01-oggi.avif",
+        "media/screens/cattedra/it/02-interpelli.avif",
+        "media/screens/cattedra/it/03-graduatorie.avif",
+        "media/screens/cattedra/it/04-punteggio.avif",
+        "media/screens/cattedra/it/05-scadenze.avif"
+      ],
+      "it": [
+        "media/screens/cattedra/it/01-oggi.avif",
+        "media/screens/cattedra/it/02-interpelli.avif",
+        "media/screens/cattedra/it/03-graduatorie.avif",
+        "media/screens/cattedra/it/04-punteggio.avif",
+        "media/screens/cattedra/it/05-scadenze.avif"
+      ]
+    }
+  }
+}
